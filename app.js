@@ -1,5 +1,6 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var assignatureRouter = require('./routes/assignature');
@@ -10,6 +11,7 @@ var app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors())
 
 app.use('/', indexRouter);
 app.use('/assignature', assignatureRouter);
