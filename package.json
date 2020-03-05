@@ -1,0 +1,13 @@
+{
+  "name": "api-repo-apuntes-ungs-v2.0",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "express": "~4.16.1",
+    "nodemon": "^2.0.2"
+  }
+}
