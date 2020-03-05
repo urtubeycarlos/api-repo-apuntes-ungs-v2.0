@@ -8,6 +8,7 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "express": "~4.16.1",
+    "firebase": "^7.9.3",
     "nodemon": "^2.0.2"
   }
 }
