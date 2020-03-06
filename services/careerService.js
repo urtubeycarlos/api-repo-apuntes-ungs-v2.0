@@ -1,19 +1,8 @@
-const firebase  = require('./../vendor/firebase');
-const careerRef = firebase.database().ref('careers');
-const Career = require('./../models/career')
+const Career = require('../models/careerModel')
 const md5 = require('md5');
 
 const getAllCareers = () => {
-    return careerRef.once('value').then( results => {
-        ret = {
-            Careers: []
-        }
-        data = results.val();
-        Object.entries(data).forEach( result => {
-            ret.Careers.push( parseSnapshot(result) )
-        })
-        return ret;
-    })
+    
 }
 
 const getCareerById = (id) => {
