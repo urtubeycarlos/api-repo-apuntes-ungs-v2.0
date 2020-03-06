@@ -1,16 +1,8 @@
+const config = require('./config')
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-/* const firebase  = require('./vendor/firebase') */;
 
-
-
-/* const db = firebase.database();
-const ref = db.ref('careers');
-ref.push({
-  name:"Tecnicatura Superior en Informatica"
-});
- */
 var app = express();
 
 app.use(express.json());
@@ -24,11 +16,15 @@ const assignatureRouter = require('./routes/assignature');
 const careerRouter = require('./routes/career');
 const noteRouter = require('./routes/note')
 
-app.use('/', indexRouter);
-app.use('/assignature', assignatureRouter);
-app.use('/career', careerRouter);
-app.use('/note', noteRouter);
+app.use(`/api/${config.apiCodename}/${config.apiVersion}/`, indexRouter);
+app.use(`/api/${config.apiCodename}/${config.apiVersion}/assignature`, assignatureRouter);
+app.use(`/api/${config.apiCodename}/${config.apiVersion}/career`, careerRouter);
+app.use(`/api/${config.apiCodename}/${config.apiVersion}/note`, noteRouter);
 
-app.listen(3000, function () {
-  console.log(`Server working on http://localhost:3000/`);
+app.get('/api', function(req, res){
+    res.redirect(`/api/${config.apiCodename}/${config.apiVersion}`)
+})
+
+app.listen(config.port, function () {
+  console.log(`Server working on http://localhost:${config.port}/api/`);
 })
