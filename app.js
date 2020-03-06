@@ -1,4 +1,4 @@
-const config = require('./config')
+const { apiVersion, apiCodename, port } = require('./config')
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
@@ -16,15 +16,15 @@ const assignatureRouter = require('./routes/assignature');
 const careerRouter = require('./routes/career');
 const noteRouter = require('./routes/note')
 
-app.use(`/api/${config.apiCodename}/${config.apiVersion}/`, indexRouter);
-app.use(`/api/${config.apiCodename}/${config.apiVersion}/assignature`, assignatureRouter);
-app.use(`/api/${config.apiCodename}/${config.apiVersion}/career`, careerRouter);
-app.use(`/api/${config.apiCodename}/${config.apiVersion}/note`, noteRouter);
+app.use(`/api/${apiVersion}/`, indexRouter);
+app.use(`/api/${apiVersion}/assignature`, assignatureRouter);
+app.use(`/api/${apiVersion}/career`, careerRouter);
+app.use(`/api/${apiVersion}/note`, noteRouter);
 
 app.get('/api', function(req, res){
-    res.redirect(`/api/${config.apiCodename}/${config.apiVersion}`)
+    res.redirect(`/api/${apiVersion}`)
 })
 
-app.listen(config.port, function () {
-  console.log(`Server working on http://localhost:${config.port}/api/`);
+app.listen(port, function () {
+  console.log(`Server working on http://localhost:${port}/api/`);
 })
