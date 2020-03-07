@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+const Model = Sequelize.Model;
 module.exports = (sequelize,type) => {
     const Career = sequelize.define('Career',{
         Name: {
