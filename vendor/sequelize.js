@@ -14,12 +14,10 @@ var Assignature = new AssignatureModel(sequelize, Sequelize);
 var Career = new CareerModel(sequelize, Sequelize);
 var Note = new NoteModel(sequelize, Sequelize);
 
-sequelize.sync()
-    .then( () => {
-        console.warn("Tablas creadas");
-    })
+sequelize.sync();
 
 module.exports = {
+    sequelize,
     Assignature,
     Career,
     Note
