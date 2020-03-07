@@ -1,4 +1,4 @@
 /node_modules
 /credentials/firebase.json
 /credentials/drive.json
-/credentials/db.json
+/credentials/db.js
