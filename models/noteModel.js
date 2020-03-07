@@ -15,6 +15,9 @@ Note.init({
     },
     Url: {
         type: Sequelize.STRING
+    },
+    AssignatureId:{
+        type: Sequelize.INTEGER
     }
 }, { sequelize,modelName: 'note' });
 

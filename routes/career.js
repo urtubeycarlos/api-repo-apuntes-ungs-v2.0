@@ -17,8 +17,4 @@ router.post('/', function(req, res){
     careerService.addCareer(req.body.name).then( result => res.send(result) );
 })
 
-router.patch('/', function(req, res){
-
-})
-
 module.exports = router;

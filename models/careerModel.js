@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../vendor/sequelize');
 const Model = Sequelize.Model;
-const Assignature = require('./assignatureModel');
 
 class Career extends Model {}
 Career.init({
@@ -12,8 +11,6 @@ Career.init({
         type: Sequelize.STRING
     }
 }, { sequelize, modelName: 'career' });
-
-Career.hasMany(Assignature);
 
 module.exports = Career;
 

@@ -10,7 +10,7 @@ const getCareerById = Id => {
         where:{
             id: Id
         }
-    })
+    });
 }
 
 const addCareer = name => {
@@ -18,15 +18,8 @@ const addCareer = name => {
         Name: name,
         Md5Name: md5(name)
     })
-}
 
-const addAssignatureToCareer = (careerId, assignatureId) => {
-    getCareerById(careerId).then( result => {
-        
-    })
-    return firebase.database().ref(`careers/${careerId}`).update()
 }
-
 
 module.exports = {
     getAllCareers: getAllCareers,
