@@ -1,8 +1,5 @@
 module.exports = (sequelize, type) => {
     const Note = sequelize.define('note', {
-        Id: {
-            type: type.INTEGER
-        },
         Filename: {
             type: type.STRING
         },
@@ -16,5 +13,6 @@ module.exports = (sequelize, type) => {
             type: type.STRING
         }
     })
+
     return Note
 }

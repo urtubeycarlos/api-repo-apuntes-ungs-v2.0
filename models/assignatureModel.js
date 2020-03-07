@@ -1,8 +1,8 @@
+const Note = require('./noteModel');
+const Career = require('./careerModel');
+
 module.exports = (sequelize,type) => {
     const Assignature = sequelize.define('assignature', {
-        Id: {
-            type: type.INTEGER
-        },
         Name:{
             type: type.STRING
         },
@@ -10,5 +10,6 @@ module.exports = (sequelize,type) => {
             type: type.STRING
         }
     })
+
     return Assignature
 }

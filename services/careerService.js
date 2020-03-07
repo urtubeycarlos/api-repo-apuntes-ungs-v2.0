@@ -1,4 +1,3 @@
-const Career = require('../models/careerModel')
 const md5 = require('md5');
 const { Career } = require('./../vendor/sequelize')
 
@@ -6,16 +5,19 @@ const getAllCareers = () => {
     return Career.findAll();
 }
 
-const getCareerByName = name => {
+const getCareerById = Id => {
     return Career.findAll({
         where:{
-            Name: name
+            id: Id
         }
     })
 }
 
 const addCareer = name => {
-
+    return Career.create({
+        Name: name,
+        Md5Name: md5(name)
+    })
 }
 
 const addAssignatureToCareer = (careerId, assignatureId) => {
@@ -25,13 +27,9 @@ const addAssignatureToCareer = (careerId, assignatureId) => {
     return firebase.database().ref(`careers/${careerId}`).update()
 }
 
-const parseSnapshot = snapshot => {
-    return new Career(snapshot);
-}
 
 module.exports = {
     getAllCareers: getAllCareers,
     getCareerById: getCareerById,
-    addCareer: addCareer,
-    parseSnapshot: parseSnapshot
+    addCareer: addCareer
 } 

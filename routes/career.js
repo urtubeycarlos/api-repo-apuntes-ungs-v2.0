@@ -4,8 +4,9 @@ const md5 = require('md5');
 const careerService = require('./../services/careerService')
 
 router.get('/', function(req, res) {
-    console.log( careerService.getAllCareers() ) ;
-    res.send('ok'); 
+    careerService.getAllCareers().then( result => {
+        res.send(result);
+    });
 });
 
 router.get('/:id', function(req, res){
