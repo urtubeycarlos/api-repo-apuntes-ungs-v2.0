@@ -1,21 +1,21 @@
 const Sequelize = require('sequelize');
+const sequelize = require('./../vendor/sequelize');
 const Model = Sequelize.Model;
 
-module.exports = (sequelize, type) => {
-    const Note = sequelize.define('note', {
-        Filename: {
-            type: type.STRING
-        },
-        Extension: {
-            type: type.STRING
-        },
-        Description: {
-            type: type.STRING
-        },
-        Url: {
-            type: type.STRING
-        }
-    })
+class Note extends Model{}
+Note.init({
+    Filename: {
+        type: Sequelize.STRING
+    },
+    Extension: {
+        type: Sequelize.STRING
+    },
+    Description: {
+        type: Sequelize.STRING
+    },
+    Url: {
+        type: Sequelize.STRING
+    }
+}, { sequelize,modelName: 'note' });
 
-    return Note
-}
+module.exports = Note;
