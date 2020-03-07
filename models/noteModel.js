@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Model = Sequelize.Model;
+
 module.exports = (sequelize, type) => {
     const Note = sequelize.define('note', {
         Filename: {
