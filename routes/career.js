@@ -14,7 +14,7 @@ router.get('/:id', function(req, res){
 })
 
 router.post('/', function(req, res){
-    careerService.addCareer(req.body.name).then( result => res.send(result) );
+    careerService.addCareer(req.fields.name).then( result => res.send(result) );
 })
 
 module.exports = router;

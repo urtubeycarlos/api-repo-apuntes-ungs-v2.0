@@ -17,9 +17,9 @@ router.get('/:careerid', function(req, res){
 });
 
 router.post('/', function(req, res){
-    assignatureService.addAssignature(req.body.name)
+    assignatureService.addAssignature(req.fields.name)
         .then( result => {
-            assignatureService.linkCareer(result.id, req.body.careerid);
+            assignatureService.linkCareer(result.id, req.fields.careerid);
             res.send(result);
         });
 })

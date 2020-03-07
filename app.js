@@ -2,6 +2,7 @@ const { apiVersion, apiCodename, port } = require('./config')
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
+const formidableMiddleware = require('express-formidable');
 
 var app = express();
 
@@ -10,6 +11,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(formidableMiddleware())
 
 const indexRouter = require('./routes/index');
 const assignatureRouter = require('./routes/assignature');
