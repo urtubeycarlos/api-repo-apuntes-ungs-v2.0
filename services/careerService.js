@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { Career } = require('./../vendor/sequelize')
+const Career = require('./../models/careerModel')
 
 const getAllCareers = () => {
     return Career.findAll();

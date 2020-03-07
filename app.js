@@ -2,9 +2,6 @@ const { apiVersion, apiCodename, port } = require('./config')
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-/* const { sequelize } = require('./vendor/sequelize');
-
-sequelize.sync() */
 
 var app = express();
 
