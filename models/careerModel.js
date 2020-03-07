@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
+const sequelize = require('./../vendor/sequelize');
 const Model = Sequelize.Model;
-module.exports = (sequelize,type) => {
-    const Career = sequelize.define('Career',{
-        Name: {
-            type: type.STRING
-        },
-        Md5Name: {
-            type: type.STRING
-        }
-    })
-    return Career
-}
+
+class Career extends Model {}
+Career.init({
+    Name: {
+        type: type.STRING
+    },
+    Md5Name: {
+        type: type.STRING
+    }
+}, { sequelize, modelName: 'career' });
