@@ -4,7 +4,8 @@ const md5 = require('md5');
 const careerService = require('./../services/careerService')
 
 router.get('/', function(req, res) {
-    careerService.getAllCareers().then( results => res.send(results) );
+    console.log( careerService.getAllCareers() ) ;
+    res.send('ok'); 
 });
 
 router.get('/:id', function(req, res){
@@ -18,6 +19,5 @@ router.post('/', function(req, res){
 router.patch('/', function(req, res){
 
 })
-
 
 module.exports = router;

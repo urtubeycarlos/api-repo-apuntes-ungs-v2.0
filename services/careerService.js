@@ -1,44 +1,20 @@
 const Career = require('../models/careerModel')
 const md5 = require('md5');
+const { Career } = require('./../vendor/sequelize')
 
 const getAllCareers = () => {
-    
+    return Career.findAll();
 }
 
-const getCareerById = (id) => {
-    return getAllCareers().then( results => {
-        return results.Careers.filter( career => career.Id == id )
-    });
+const getCareerByName = name => {
+    return Career.findAll({
+        where:{
+            Name: name
+        }
+    })
 }
 
 const addCareer = name => {
-    return getAllCareers().then( results => {
-        var exists = false;
-        results.Careers.forEach( career => {
-            exists = exists || (career.Name == name)
-        })
-        
-        if( !exists ){
-            let newCareer = {
-                Name: name,
-                Md5Name: md5(name),
-                AssignaturesIDs: [0]
-            }
-
-            careerRef.push(newCareer);
-
-            return {
-                status: 201,
-                description: "Career added successfully"
-            }
-        } else {
-            return {
-                status: 200,
-                description: "Career already exists"
-            }
-        }
-
-    })
 
 }
 
