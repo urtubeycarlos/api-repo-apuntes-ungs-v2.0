@@ -6,8 +6,8 @@ const util = require("util");
 const { google } = require("googleapis");
 
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
-const TOKEN_PATH = "token.json";
-const CREDENTIALS_PATH = "credentials.json";
+const TOKEN_PATH = "credentials/token.json";
+const CREDENTIALS_PATH = "credentials/credentials.json";
 
 const assertAccess = (callback) => {
 
@@ -95,7 +95,7 @@ const refreshToken = (credentials, parsedToken, callback) => {
 	});
 }
 
-const getAccesToken = (oAuth2Client, callback) => {
+const getAccessToken = (oAuth2Client, callback) => {
 
 	const authUrl = oAuth2Client.generateAuthUrl({
 		access_type: "offline",
@@ -133,11 +133,50 @@ const getAccesToken = (oAuth2Client, callback) => {
 	});
 }
 
-const simpleUpload = (auth, file, callback) => {
+const getById = (auth, id, callback) => {
+
+	const drive = google.drive({ version: "v3", auth });
+
+	drive.files.get(
+		{
+			fileId: id,
+			fields: "id, name, mimeType, parents, webContentLink"
+		},
+		(err, res) => {
+
+			callback(err, res.data);
+		}
+	);
+}
+
+const createFolder = (auth, name, callback) => {
+
+	let metadata = {
+		name,
+		mimeType: 'application/vnd.google-apps.folder'
+	};
+
+	const drive = google.drive({ version: "v3", auth });
+
+	drive.files.create({
+		resource: metadata,
+		fields: 'id'
+	}, 
+	(err, res) => {
+
+		callback(err, res.data);
+	});
+}
+
+const simpleUpload = (auth, parentId, file, callback) => {
 
 	let resource = {
-		name: file.name,
+		name: file.name
 	};
+
+	if (parentId) {
+		resource['parents'] = [parentId];
+	}
 
 	let media = {
 		mimeType: file.type,
@@ -151,7 +190,10 @@ const simpleUpload = (auth, file, callback) => {
 		media,
 		fields: 'id'
 	}, 
-	callback);
+	(err, res) => {
+
+		callback(err, res.data);
+	});
 }
 
 const resumableUpload = (auth, parentId, file, callback) => {
@@ -162,11 +204,14 @@ const resumableUpload = (auth, parentId, file, callback) => {
 	resumable.filepath = file.path;
 	resumable.fileSize = file.size;
 	resumable.mimeType = file.type;
+	resumable.retry = 3;
 	resumable.metadata = {
 		name: file.name,
-		parents: [parentId]
 	};
-	resumable.retry = 3;
+
+	if (parentId) {
+		resumable.metadata['parents'] = [parentId];
+	}
 
 	resumable.on('progress', function (progress) {
 		console.log(progress);
@@ -286,7 +331,7 @@ resumableUploadHandler.prototype.send = () => {
 			clearInterval(health);
 
 			if (!error) {
-				self.emit("success", body);
+				self.emit("success", JSON.parse(body));
 				return;
 			}
 
@@ -335,7 +380,9 @@ module.exports = {
 	assertAccess: assertAccess,
 	authorize: authorize,
 	refreshToken: refreshToken,
-	getAccesToken: getAccesToken,
+	getAccessToken: getAccessToken,
+	createFolder: createFolder,
+	getById: getById,
 	simpleUpload: simpleUpload,
 	resumableUpload: resumableUpload
 }
