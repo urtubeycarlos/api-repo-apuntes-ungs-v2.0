@@ -42,7 +42,7 @@ const authorize = (credentials, callback) => {
 		let parsedToken = JSON.parse(token);
 
 		// Check if token is expired
-		if (parsedToken.expiry_date < Math.floor(Date.now() / 1000)) {
+		if (parsedToken.expiry_date < Math.round(Date.now() / 1000)) {
 
 			return refreshToken(credentials.installed, parsedToken, (refreshedToken) => {
 
@@ -81,7 +81,7 @@ const refreshToken = (credentials, parsedToken, callback) => {
 		parsedToken.access_token = body.access_token;
 
 		let today = new Date();
-		parsedToken.expiry_date = Math.round(today.setHours(today.getHours() + 1)/1000); // token expires in one hour
+		parsedToken.expiry_date = Math.round(today.setHours(today.getHours() + 1) / 1000); // token expires in one hour
 
 		// Update token on file
 		fs.writeFile(TOKEN_PATH, JSON.stringify(parsedToken), err => {
@@ -204,7 +204,7 @@ const resumableUpload = (auth, parentId, file, callback) => {
 	resumable.filepath = file.path;
 	resumable.fileSize = file.size;
 	resumable.mimeType = file.type;
-	resumable.retry = 3;
+	resumable.retry = 0;
 	resumable.metadata = {
 		name: file.name,
 	};
@@ -227,7 +227,7 @@ const resumableUpload = (auth, parentId, file, callback) => {
 	resumable.upload();
 }
 
-function resumableUploadHandler() {
+var resumableUploadHandler = function () {
 
 	this.byteCount = 0;
 	this.tokens = {};
@@ -241,7 +241,7 @@ function resumableUploadHandler() {
 	this.api = "/upload/drive/v3/files";
 }
 
-resumableUploadHandler.prototype.upload = () => {
+resumableUploadHandler.prototype.upload = function() {
 
 	let self = this;
 
@@ -287,9 +287,10 @@ resumableUploadHandler.prototype.upload = () => {
 	});
 }
 
-resumableUploadHandler.prototype.send = () => {
+resumableUploadHandler.prototype.send = function() {
 
 	let self = this;
+
 	let options = {
 		url: self.location, //self.location becomes the Google-provided URL to PUT to
 		headers: {
@@ -358,7 +359,7 @@ resumableUploadHandler.prototype.send = () => {
 	);
 }
 
-resumableUploadHandler.prototype.getProgress = (handler) => {
+resumableUploadHandler.prototype.getProgress = function (handler) {
 
 	let self = this;
 

@@ -16,8 +16,9 @@ router.post('/', function(req, res){
     
     driveService.assertAccess( oAuthClient => { 
         Object.keys(req.files).forEach( filename => {
-            driveService.resumableUpload(oAuthClient, null, req.files[filename], result => {
-                console.log(result);
+            driveService.resumableUpload(oAuthClient, null, req.files[filename], (error, result) => {
+				
+				console.log({error, result});
             })
         });
     })
