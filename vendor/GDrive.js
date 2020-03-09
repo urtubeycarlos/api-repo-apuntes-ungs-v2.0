@@ -133,6 +133,36 @@ const getAccessToken = (oAuth2Client, callback) => {
 	});
 }
 
+const assertData = (parameter) => {
+
+	if (!parameter) return null;
+
+	if (!parameter.data) return null;
+
+	return parameter.data;
+}
+
+const assertError = (parameter) => {
+
+	if (!parameter) return null;
+
+	// As error response is one level down, we bring it up to object root
+	if (parameter.response)
+		parameter = parameter.response;
+
+	if (!parameter.data) return null;
+
+	return parameter.data.error;
+}
+
+const parseResponse = (err, res, callback) => {
+
+	callback(
+		assertError(err),
+		assertData(res)
+	);
+}
+
 const getById = (auth, id, callback) => {
 
 	const drive = google.drive({ version: "v3", auth });
@@ -142,11 +172,7 @@ const getById = (auth, id, callback) => {
 			fileId: id,
 			fields: "id, name, mimeType, parents, webContentLink"
 		},
-		(err, res) => {
-
-			callback(err, res.data);
-		}
-	);
+		(err, res) => parseResponse(err, res, callback));
 }
 
 const createFolder = (auth, name, callback) => {
@@ -162,10 +188,7 @@ const createFolder = (auth, name, callback) => {
 		resource: metadata,
 		fields: 'id'
 	}, 
-	(err, res) => {
-
-		callback(err, res.data);
-	});
+	(err, res) => parseResponse(err, res, callback));
 }
 
 const simpleUpload = (auth, parentId, file, callback) => {
@@ -190,10 +213,7 @@ const simpleUpload = (auth, parentId, file, callback) => {
 		media,
 		fields: 'id'
 	}, 
-	(err, res) => {
-
-		callback(err, res.data);
-	});
+	(err, res) => parseResponse(err, res, callback));
 }
 
 const resumableUpload = (auth, parentId, file, callback) => {
