@@ -5,18 +5,26 @@ const getAllCareers = () => {
     return Career.findAll();
 }
 
-const getCareerById = Id => {
+const getCareerById = id => {
     return Career.findAll({
         where:{
-            id: Id
+            id: id
         }
     });
 }
 
+const getCareerByName = name => {
+    return Career.findAll({
+        where: {
+            name: name
+        }
+    })
+}
+
 const addCareer = name => {
     return Career.create({
-        Name: name,
-        Md5Name: md5(name)
+        name: name,
+        md5Name: md5(name)
     })
 
 }
@@ -24,5 +32,6 @@ const addCareer = name => {
 module.exports = {
     getAllCareers: getAllCareers,
     getCareerById: getCareerById,
+    getCareerByName: getCareerByName,
     addCareer: addCareer
 } 

@@ -4,20 +4,20 @@ const Model = Sequelize.Model;
 
 class Note extends Model{}
 Note.init({
-    Filename: {
+    filename: {
         type: Sequelize.STRING
     },
-    Extension: {
+    extension: {
         type: Sequelize.STRING
     },
-    Description: {
+    description: {
         type: Sequelize.STRING
     },
-    Url: {
-        type: Sequelize.STRING
-    },
-    AssignatureId:{
+    assignatureId: {
         type: Sequelize.INTEGER
+    },
+    url: {
+        type: Sequelize.STRING
     }
 }, { sequelize,modelName: 'note' });
 

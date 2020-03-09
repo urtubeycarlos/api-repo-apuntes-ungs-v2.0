@@ -4,10 +4,10 @@ const Model = Sequelize.Model;
 
 class Assignature extends Model{}
 Assignature.init({
-    Name:{
+    name:{
         type: Sequelize.STRING
     },
-    Md5Name:{
+    md5Name:{
         type: Sequelize.STRING
     }
 }, { sequelize, modelName: 'assignature'});

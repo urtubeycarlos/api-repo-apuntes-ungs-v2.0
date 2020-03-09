@@ -4,6 +4,7 @@ const CareerAssignature = require('./../models/careerAssignatureModel');
 const careerService = require('./careerService');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const driveService = require('./../vendor/GDrive');
 
 const getAllAssignatures = () => {
     return Assignature.findAll();
@@ -17,16 +18,24 @@ const getAssignatureById = Id => {
     })
 }
 
+const getAssignatureByName = name => {
+    return Assignature.findAll({
+        where: {
+            name: name
+        }
+    })
+}
+
 const getAllAssignaturesByCareerId = careerId => {
     return CareerAssignature.findAll({
             where: {
-                CareerId: careerId
+                careerId: careerId
             }
         }
     ).then( results => {
         return results.map( result => {
             return {
-                id: result.AssignatureId
+                id: result.assignatureId
             }   
         });
     }).then( assignaturesIds => {
@@ -40,22 +49,23 @@ const getAllAssignaturesByCareerId = careerId => {
 
 const addAssignature = name => {
     return Assignature.create({
-        Name: name,
-        Md5Name: md5(name)
+        name: name,
+        md5Name: md5(name)
     });
 }
 
 const linkCareer = (assignatureId, careerId) => {
     CareerAssignature.create({
-        CareerId: careerId,
-        AssignatureId: assignatureId
+        careerId: careerId,
+        assignatureId: assignatureId
     })
 }
 
 module.exports = {
-    getAllAssignatures:getAllAssignatures,
-    getAssignatureById:getAssignatureById,
-    getAllAssignaturesByCareerId:getAllAssignaturesByCareerId,
-    linkCareer:linkCareer,
-    addAssignature:addAssignature
+    getAllAssignatures: getAllAssignatures,
+    getAssignatureById: getAssignatureById,
+    getAssignatureByName: getAssignatureByName,
+    getAllAssignaturesByCareerId: getAllAssignaturesByCareerId,
+    linkCareer: linkCareer,
+    addAssignature: addAssignature
 }

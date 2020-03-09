@@ -14,16 +14,18 @@ router.get('/:id', function(req, res){
 
 router.post('/', function(req, res){
     
-    driveService.assertAccess( oAuthClient => { 
+    driveService.assertAccess( oAuth => {
         Object.keys(req.files).forEach( filename => {
-            driveService.resumableUpload(oAuthClient, null, req.files[filename], (error, result) => {
-				
-				console.log({error, result});
+            driveService.simpleUpload(oAuth, null, req.files[filename], (err, result) => {
+                driveService.getById(oAuth, result.id, (err, data) => {
+                    const extension = req.files[filename].type.split('/')[1];
+                    noteService.addNote(filename, extension, req.fields.description, req.fields.assignatureid, data.webContentLink)
+                            .then( querryResult => res.status(201).send(querryResult) )
+                            .catch( err => res.status(501).send(err) );
+                })
             })
         });
     })
-
-    res.send('Ok')
 });
 
 module.exports = router;
