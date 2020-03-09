@@ -6,8 +6,8 @@ const util = require("util");
 const { google } = require("googleapis");
 
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
-const TOKEN_PATH = "vemdor/token.json";
-const CREDENTIALS_PATH = "vendor/drive.json";
+const TOKEN_PATH = "credentials/token.json";
+const CREDENTIALS_PATH = "credentials/drive.json";
 
 const assertAccess = (callback) => {
 
