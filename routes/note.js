@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const noteService = require('./../services/noteService')
+const express = require('express');
+const router = express.Router();
+const noteService = require('./../services/noteService');
+const driveService = require('./../vendor/GDrive');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -12,8 +13,15 @@ router.get('/:id', function(req, res){
 })
 
 router.post('/', function(req, res){
-    console.log(req.fields.name);
-    console.log(req.files);
+    
+    driveService.assertAccess( oAuthClient => { 
+        Object.keys(req.files).forEach( filename => {
+            driveService.resumableUpload(oAuthClient, null, req.files[filename], result => {
+                console.log(result);
+            })
+        });
+    })
+
     res.send('Ok')
 });
 
