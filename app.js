@@ -17,11 +17,13 @@ const indexRouter = require('./routes/index');
 const assignatureRouter = require('./routes/assignature');
 const careerRouter = require('./routes/career');
 const noteRouter = require('./routes/note')
+const loginRouter = require('./routes/login')
 
 app.use(`/api/${apiVersion}/`, indexRouter);
 app.use(`/api/${apiVersion}/assignature`, assignatureRouter);
 app.use(`/api/${apiVersion}/career`, careerRouter);
 app.use(`/api/${apiVersion}/note`, noteRouter);
+app.use(`/api/${apiVersion}/login`, loginRouter);
 
 app.get('/api', function(req, res){
     res.redirect(`/api/${apiVersion}`)
