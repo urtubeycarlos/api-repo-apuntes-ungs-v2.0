@@ -25,6 +25,7 @@ router.post('/', function(req, res){
             } else {
                 assignatureService.addAssignature(req.fields.name)
                 .then( result => {
+                    assignatureService.linkCareer(result.id, req.fields.careerid);
                     res.status(201).send(result);
                 })
                 .catch( err => res.status(500).send(err) );
