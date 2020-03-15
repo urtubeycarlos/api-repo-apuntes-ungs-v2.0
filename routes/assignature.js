@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const assignatureService = require('./../services/assignatureService');
+const { getCareerByName } = require('./../services/careerService')
 
 /* GET users listing. */
 router.get('/', function(req, res) {

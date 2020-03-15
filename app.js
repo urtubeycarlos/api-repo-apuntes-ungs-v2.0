@@ -23,11 +23,13 @@ app.use(`/api/${apiVersion}/`, indexRouter);
 app.use(`/api/${apiVersion}/assignature`, assignatureRouter);
 app.use(`/api/${apiVersion}/career`, careerRouter);
 app.use(`/api/${apiVersion}/note`, noteRouter);
-app.use(`/api/${apiVersion}/login`, loginRouter);
 
 app.get('/api', function(req, res){
     res.redirect(`/api/${apiVersion}`)
 })
+
+app.use('/login', loginRouter);
+app.use('/contact', contactRouter);
 
 app.listen(port, function () {
   console.log(`Server working on http://localhost:${port}/api/`);
