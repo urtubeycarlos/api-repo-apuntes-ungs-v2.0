@@ -18,6 +18,7 @@ const assignatureRouter = require('./routes/assignature');
 const careerRouter = require('./routes/career');
 const noteRouter = require('./routes/note')
 const loginRouter = require('./routes/login')
+const contactRouter = require('./routes/contact')
 
 app.use(`/api/${apiVersion}/`, indexRouter);
 app.use(`/api/${apiVersion}/assignature`, assignatureRouter);
